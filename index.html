@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+    <style>
+        #box{
+            background-color: #EAECEE;
+            border:0.5px solid #808B96;
+            width:100px;height:100px;
+            display: inline-block;
+            text-align: center;
+            line-height: 90px;
+            margin:0px;
+        }
+        #start,#play,#pause,#reset{
+            padding:20px 50px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        body{
+            background-color:#F4F6F6;
+        }
+    </style>
+    <body>
+       <div class="container" style="padding:0px;padding-top:30px;text-align:center;margin:auto;max-width:800px;margin-top:50px;background-color:#566573;">
+        <h1 style="font-size:50px;">
+            <div id="box">
+                <span id="min">00</span>
+            </div>
+            <div id="box">
+            <span id="colon">:</span>
+            </div>
+            <div id="box">
+            <span id="sec">00</span>
+            </div>
+            <div id="box">
+            <span id="colon">:</span>
+            </div>
+            <div id="box">
+            <span id="msec">00</span>
+            </div>
+        </h1>
+        <br><br>
+       </div>
+       <div class="container" style="margin:auto;max-width:800px;padding:30px;">
+        <center>
+            <button id="start" class="btn btn-success">Start</button>
+            <button id="play" class="btn btn-warning">Play</button>
+            <button id="pause" class="btn btn-danger">Pause</button>
+            <button id="reset" class="btn btn-primary">Reset</button>
+        </center>
+       </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           var ispaused = false;
+           var msec = document.getElementById("msec").innerHTML;
+           var sec = document.getElementById("sec").innerHTML;
+           var min = document.getElementById("min").innerHTML;
+           var start = document.querySelector("#start");
+           start.addEventListener('click',function(){
+            setInterval(function(){
+                if(!ispaused)
+                {
+                    msec++;
+                    console.log(sec);
+                    if(msec==60){
+                        msec=0;
+                        sec++;
+                    }
+                    if(sec==60)
+                    {
+                        sec=0;
+                        min++;
+                    }
+                    document.getElementById("msec").innerHTML = msec;
+                    document.getElementById("sec").innerHTML = sec;
+                    document.getElementById("min").innerHTML = min;
+                }
+            },10);
+           });
+           $("#pause").on("click",function(){
+               ispaused = true;
+           });
+           $("#play").on("click",function(){
+            ispaused = false;
+           });
+           $("#reset").on("click",function(){
+                    document.getElementById("msec").innerHTML = "00";
+                    document.getElementById("sec").innerHTML = "00";
+                    document.getElementById("min").innerHTML = "00";
+                    msec = 0; sec = 0; min = 0;
+                    ispaused = true;
+           });
+        })
+    </script>
+</html>
